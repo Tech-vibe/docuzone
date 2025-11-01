@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Branch Selection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body{
+            background: white;
+            padding-top: 60px;
+        }
+
+        .header{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 3px 8%;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content:space-between ;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .logo{
+            margin-left: 0; 
+            font-size: 25px;
+            font-weight: 700;
+            text-decoration: none;
+            color: #222;
+        }
+
+        .navbar a{
+            font-size: 18px;
+            color: #222;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 0 20px;
+        }
+
+        .navbar a:hover,.navbar a.active{
+            color: #1743e3;
+        }
+
+        .navbar .logout{
+            background:white;
+            background-size: 38px;
+            padding: 5px 10px;
+            border: 2px solid white;
+            border-radius: 20px;
+            color: #1743e3;
+            font-weight: 600;
+            display: block; 
+            margin-right: 0; 
+        }
+
+        .navbar .logout:hover{
+            color:#1743e3;
+            background: #a4a4a4;
+        }
+
+        .search{
+            width: max-content ;
+            display: flex;
+            align-items: center;
+            padding: 8px 14px;
+            border-radius: 28px;
+            background: #f6f6f6;
+            transition:background 0.25s;
+            box-shadow: #333333;
+            margin-top: 0; 
+            top: auto;
+            border: 2px solid #1743e3;
+        }
+        .Searchinput{
+            font-size: 16px;
+            font-family: 'Poppins',sans-serif;
+            color: #333333 ;
+            margin-left: 14px;
+            outline: none;
+            border:none;
+            background: transparent;
+            width: 150px;
+        }
+        .Searchinput::placeholder,.bx{
+            color: rgba(0, 0, 0, 0.25);
+        }
+        .search:focus-within{
+            background:#e2dddd;
+        }
+        .search:hover{
+            background: #cddbf3;
+        }
+        
+
+        .page-title {
+            text-align: center;
+            color: #222;
+            font-size: 32px;
+            font-weight: 700;
+            margin: 40px 0 20px 0;
+            padding: 0 10px;
+        }
+
+        .branch-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .branch-button {
+            text-decoration: none;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+            padding: 20px 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-width: 220px;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .branch-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .branch-button-cs { background-color: #e74c3c; } 
+        .branch-button-me { background-color: #2ecc71; } 
+        .branch-button-eee { background-color: #3498db; } 
+        .branch-button-ec { background-color: #f39c12; } 
+        .branch-button-it { background-color: #9b59b6; } 
+        .branch-button-ce { background-color: #1abc9c; } 
+        
+        @media (max-width: 900px) {
+            .header {
+                flex-direction: column;
+                padding: 10px 5%;
+                height: auto;
+            }
+            .navbar {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 10px;
+            }
+            .navbar a {
+                margin: 0 5px;
+            }
+            .search {
+                margin-top: 10px;
+                width: 80%;
+                max-width: 300px;
+            }
+            body {
+                padding-top: 120px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .branch-button {
+                min-width: 100%;
+                font-size: 18px;
+                padding: 15px 30px;
+            }
+            .page-title {
+                font-size: 24px;
+            }
+            .header {
+                padding: 3px 5%;
+            }
+            .logo {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="#" class="logo">Docuzone.</a>
+        
+        <nav class="navbar">
+            <a href="web.html">Home</a>
+            <a href="dashboard.html">Services</a>
+            <a href="branch.html" class="active">Branches</a> 
+            <a href="notes.html">Upload</a>
+            <a href="profile.html">Profile</a>
+            <a href="#">Contact Us</a>
+        </nav>
+
+        <form>
+            <div class="search">
+                <i class='bx bx-search'></i>
+                <input type="search" class="Searchinput" placeholder="Search">
+            </div>
+        </form>
+        
+        <nav class="navbar">
+            <a href="login.html" class="logout">Logout</a>
+        </nav>
+
+        <script>
+            document.querySelector('.logout').addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href = 'login.html';
+            });
+        </script>
+    </header>
+
+    <h1 class="page-title">Select Your S1 Engineering Branch</h1>
+
+    <div class="branch-container">
+        <a href="download-s1-cs.html" class="branch-button branch-button-cs">
+            CS <br> (Computer Science)
+        </a>
+        
+        <a href="download-s1-me.html" class="branch-button branch-button-me">
+            ME <br> (Mechanical Engineering)
+        </a>
+
+        <a href="download-s1-eee.html" class="branch-button branch-button-eee">
+            EEE <br> (Electrical & Electronics)
+        </a>
+
+        <a href="download-s1-ec.html" class="branch-button branch-button-ec">
+            EC <br> (Electronics & Comm.)
+        </a>
+
+        <a href="download-s1-it.html" class="branch-button branch-button-it">
+            IT <br> (Information Technology)
+        </a>
+
+        <a href="download-s1-ce.html" class="branch-button branch-button-ce">
+            CE <br> (Civil Engineering)
+        </a>
+    </div>
+    
+</body>
+</html>

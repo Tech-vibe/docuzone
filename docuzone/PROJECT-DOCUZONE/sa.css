@@ -1,0 +1,254 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+
+body{
+    background: white;
+
+}
+
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 3px 8%;
+    background: transparent;
+    display: flex;
+    justify-content:space-between ;
+    align-items: center;
+    z-index: 100;
+}
+
+.search{
+    margin-top: 8%;
+    top:8%;
+    border: 2px solid #1743e3;
+}
+
+.logo{
+    margin-left: -40px;
+    font-size: 25px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #222;
+}
+
+.navbar a{
+    font-size: 18px;
+    color: #222;
+    text-decoration: none;
+    font-weight: 500;
+    margin: 0 20px;
+}
+
+.navbar a:hover,.navbar a.active{
+    color: #1743e3;
+}
+
+.navbar .logout{
+    background:white;
+    background-size: 38px;
+    padding: 5px 10px;
+    border: 2px solid white;
+    border-radius: 20px;
+    color: #1743e3;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    margin-right: -50px;
+    
+}
+
+
+
+.navbar .logout:hover{
+    
+   
+    color:#1743e3;
+    background: #a4a4a4;
+}
+
+
+
+
+
+
+.home{
+    position: absolute;
+    justify-content: space-between;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    padding:30px 5% ;
+    overflow: hidden;
+}
+
+.lists ol li {
+   
+    font-size: 25px; 
+    font-size: 25px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #222;
+}
+
+.wrapper .lists ol{
+    list-style: none;
+    height: 2.0rem;
+    overflow: hidden;
+    
+}
+.lists{
+    list-style: none;
+    font-size: 25px; 
+    font-family: "Poppins", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+    
+    
+}
+
+.wrapper .lists ol li{
+    animation: slide-up 10s infinite;
+    color: #1743e3;
+}
+
+@keyframes slide-up{
+    0%,10%{
+        transform: translateY(0%);
+    }
+    15%,25%{
+        transform: translateY(-100%);
+    }
+    30%,40%{
+        transform: translateY(-200%);
+    }
+    45%,55%{
+        transform: translateY(-300%);
+    }
+    60%,70%{
+        transform: translateY(-400%);
+    }
+}
+
+
+
+
+
+.search{
+    width: max-content ;
+    display: flex;
+    align-items: center;
+    padding: 14px;
+    border-radius: 28px;
+    background: #f6f6f6;
+    transition:background 0.25s;
+    box-shadow: #333333;
+
+}
+.Searchinput{
+ 
+    font-size: 16px;
+   font-family: 'Lexand',sans-serif;
+    color: #333333 ;
+    margin-left: 14px;
+    outline: none;
+    border:none;
+    background: transparent;
+    width: 150px;
+    
+}
+
+.Searchinput::placeholder,.bx{
+    color: rgba(0, 0, 0, 0.25);
+
+}
+
+.search:focus-within{
+    background:#e2dddd;
+}
+
+.search:hover{
+    background: #cddbf3;
+}
+
+.des{
+    font-family:"poppins",sans-serif;
+}
+.astart{
+    margin-top: 20px;
+    display: inline-block;
+    padding: 7px 15px;
+    size: 5px;
+    background: #1743e3;
+    border: 2px solid #1743e3;
+    border-radius: 25px;
+    text-decoration: none;
+    color: #cddbf3;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: ease-in 0.2s;
+
+}
+
+
+.wrapper{
+    max-width: 630px;
+}
+
+.astart:hover{
+    background: transparent;
+    color: #1743e3;
+}
+
+.home-img{
+    transform: rotate(45deg);
+    position: fixed;
+    margin-top: -15px;
+    right: 4%;
+    width: 350px;
+    height: 350px;
+    margin-right: 110px;
+    margin-top: 15px;
+    top: 10%;
+    margin-right: -10%;
+}
+
+.home-img .rombus{
+    top: 15%;
+    position: absolute;
+    margin-right: 110px;
+    margin-top: 15px;
+    width: 100%;
+    height: 100%;
+    background: white;
+    border:20px solid #1743e3
+}
+
+.home-img .rombus img{
+    position: absolute;
+    width: 700px;
+    
+    max-width: 780px;
+    transform: rotate(-43deg);
+    left: -280px;
+    top: -15px;
+}
+
+.home .rombus2{
+    position: absolute;
+    margin-top: -355px;
+    right: -7%;
+    background: #1743e3;
+    width: 377px;
+    height: 370px;
+    transform: rotate(-45deg);
+    z-index: -1;
+
+}

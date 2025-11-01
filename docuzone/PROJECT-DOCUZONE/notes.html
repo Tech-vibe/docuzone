@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DocZone - Notes Portal</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      #uploadbutton {
+        color: white;
+        margin-top: 20px;
+        display: inline-block;
+        padding: 7px 15px;
+        background: #1743e3;
+        border: 2px solid #1743e3;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        letter-spacing: 1px;
+        transition: ease-in 0.2s;
+        font-family: "Poppins", sans-serif;
+      }
+      #uploadbutton:hover {
+        background: transparent;
+        color: #1743e3;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <a href="web.html" class="logo">DOCUZONE</a>
+      <div class="navbar">
+        <a href="web.html">Home</a>
+        <a href="notes.html" id="uploadbutton">Upload Notes</a>
+        <a href="profile.html">Profile</a>
+        <button class="logout">Logout</button>
+      </div>
+    </div>
+
+    <!-- Page Title -->
+    <div class="page-title">Notes Portal</div>
+
+    <!-- Notes Container -->
+    <div class="notes-container">
+      <!-- Upload Section -->
+      <div class="card">
+        <h2>Upload Your Notes</h2>
+        <input type="file" id="uploadFile" />
+        <button id="uploadButton">Upload</button>
+        <p id="uploadStatus"></p>
+      </div>
+
+      <!-- Download Section -->
+      <div class="card">
+        <h2>Download Notes</h2>
+
+        <div class="search">
+          <input
+            type="text"
+            id="searchNotes"
+            class="Searchinput"
+            placeholder="Search notes..."
+          />
+        </div>
+
+        <div class="notes-list">
+          <ul id="pdfList"></ul>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="logout.js"></script>
+  </body>
+  <script>
+    // --- Configuration ---
+    const BASE_URL = "http://localhost:8080/api/pdfs"; // Change port if your backend runs on a different one (e.g., 8081)
+
+    // --- UPLOAD PDF FUNCTIONALITY ---
+    document.addEventListener("DOMContentLoaded", () => {
+      const uploadButton = document.getElementById("uploadButton");
+      const uploadFile = document.getElementById("uploadFile");
+      const uploadStatus = document.getElementById("uploadStatus");
+
+      // 1. Handle Upload Button Click
+      uploadButton.addEventListener("click", async () => {
+        const file = uploadFile.files[0];
+
+        if (!file) {
+          uploadStatus.textContent = "Please select a file to upload.";
+          uploadStatus.style.color = "red";
+          return;
+        }
+
+        // Check if the file is a PDF
+        if (file.type !== "application/pdf") {
+          uploadStatus.textContent = "Only PDF files are allowed.";
+          uploadStatus.style.color = "red";
+          return;
+        }
+
+        uploadStatus.textContent = "Uploading...";
+        uploadStatus.style.color = "blue";
+
+        // Create form data to send the file
+        const formData = new FormData();
+        // The key 'file' MUST match the @RequestParam("file") in the Java Controller
+        formData.append("file", file);
+
+        try {
+          const response = await fetch(`${BASE_URL}/upload`, {
+            method: "POST",
+            body: formData, // No Content-Type header needed; fetch handles it with FormData
+          });
+
+          const result = await response.text();
+
+          if (response.ok) {
+            uploadStatus.textContent = "Success! " + result;
+            uploadStatus.style.color = "green";
+            uploadFile.value = ""; // Clear file input
+            // Refresh the list after successful upload
+            loadPdfs();
+          } else {
+            uploadStatus.textContent = "Error: " + result;
+            uploadStatus.style.color = "red";
+          }
+        } catch (error) {
+          uploadStatus.textContent =
+            "Network Error. Is the Spring Boot server running?";
+          uploadStatus.style.color = "red";
+          console.error("Upload Error:", error);
+        }
+      });
+
+      // 2. Handle Listing and Deleting PDFs
+      const pdfList = document.getElementById("pdfList");
+
+      async function loadPdfs() {
+        try {
+          const response = await fetch(`${BASE_URL}`);
+          const pdfs = await response.json();
+
+          pdfList.innerHTML = ""; // Clear the list
+
+          if (pdfs.length === 0) {
+            pdfList.innerHTML = "<li>No notes uploaded yet.</li>";
+            return;
+          }
+
+          pdfs.forEach((pdf) => {
+            const li = document.createElement("li");
+            li.classList.add("pdf-item");
+            li.innerHTML = `
+                        <span>${pdf.fileName}</span>
+                        <a href="${BASE_URL}/${pdf.id}" target="_blank" class="view-link">View</a>
+                        <button class="delete-button" data-id="${pdf.id}">Delete</button>
+                    `;
+            pdfList.appendChild(li);
+          });
+          console.log(pdfList);
+          // Attach event listeners to the new delete buttons
+          pdfList.querySelectorAll(".delete-button").forEach((button) => {
+            button.addEventListener("click", handleDelete);
+          });
+        } catch (error) {
+          pdfList.innerHTML =
+            "<li>Failed to load notes. Check the server connection.</li>";
+          console.error("List Load Error:", error);
+        }
+      }
+
+      async function handleDelete(event) {
+        const id = event.target.dataset.id;
+        if (!confirm(`Are you sure you want to delete PDF ID ${id}?`)) {
+          return;
+        }
+
+        try {
+          const response = await fetch(`${BASE_URL}/${id}`, {
+            method: "DELETE",
+          });
+
+          if (response.ok) {
+            alert("PDF deleted successfully!");
+            loadPdfs(); // Refresh the list
+          } else {
+            alert("Failed to delete PDF.");
+          }
+        } catch (error) {
+          alert("Network Error during delete operation.");
+        }
+      }
+
+      // Load PDFs when the page loads
+      loadPdfs();
+    });
+  </script>
+</html>

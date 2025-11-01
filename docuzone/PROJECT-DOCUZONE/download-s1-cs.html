@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Download Your Notes</title>
+
+    <!-- Fonts & Icons -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <style>
+      /* Reset and Global Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: white;
+        padding-top: 60px;
+      }
+
+      /* Header */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 3px 8%;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+      }
+
+      .logo {
+        font-size: 25px;
+        font-weight: 700;
+        text-decoration: none;
+        color: #222;
+      }
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .navbar a {
+        font-size: 18px;
+        color: #222;
+        text-decoration: none;
+        font-weight: 500;
+        margin: 0 15px;
+      }
+
+      .navbar a:hover,
+      .navbar a.active {
+        color: #1743e3;
+      }
+
+      .logout-button {
+        background: #1743e3;
+        padding: 5px 15px;
+        border: 2px solid #1743e3;
+        border-radius: 20px;
+        color: white;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 0.3s, color 0.3s;
+      }
+
+      .logout-button:hover {
+        background: white;
+        color: #1743e3;
+      }
+
+      /* Title */
+      .page-title {
+        text-align: center;
+        color: #222;
+        font-size: 32px;
+        font-weight: 700;
+        margin: 40px 0 20px 0;
+      }
+
+      /* Notes Container */
+      .notes-container {
+        max-width: 1200px;
+        margin: 0 auto 40px auto;
+        padding: 0 20px;
+      }
+
+      .notes-search-bar {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        border-radius: 35px;
+        background: #f6f6f6;
+        border: 2px solid #1743e3;
+        margin-bottom: 40px;
+        transition: background 0.25s;
+      }
+
+      .notes-search-bar:focus-within {
+        background: #e2dddd;
+      }
+
+      .notes-search-bar input {
+        flex-grow: 1;
+        font-size: 18px;
+        color: #333;
+        margin-left: 15px;
+        outline: none;
+        border: none;
+        background: transparent;
+      }
+
+      .notes-search-bar .bx-search {
+        font-size: 24px;
+        color: #1743e3;
+      }
+
+      /* PDF List: Flex Row */
+      #pdfList {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 0;
+      }
+
+      #pdfList li {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        width: 220px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+      }
+
+      #pdfList li:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .pdf-preview {
+        width: 100%;
+        height: 150px;
+        background: #f4f4f4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .pdf-preview img {
+        max-width: 80%;
+        max-height: 80%;
+        object-fit: contain;
+      }
+
+      .pdf-title {
+        font-size: 16px;
+        text-align: center;
+        color: #333;
+        margin: 10px 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .view-link {
+        text-decoration: none;
+        font-weight: 500;
+        color: #1743e3;
+        margin-top: 5px;
+      }
+
+      /* Download Button */
+      .download-button {
+        background-color: #2ecc71;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background-color 0.3s;
+        display: flex;
+        align-items: center;
+      }
+
+      .download-button:hover {
+        background-color: #27ae60;
+      }
+
+      .download-button i {
+        margin-right: 5px;
+        font-size: 18px;
+      }
+
+      /* Responsive */
+      @media (max-width: 900px) {
+        .header {
+          flex-direction: column;
+          padding: 10px 5%;
+        }
+
+        .navbar {
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 10px;
+          margin: 10px 0;
+        }
+
+        .logout-button {
+          margin: 5px 0 10px 0;
+        }
+
+        body {
+          padding-top: 100px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .page-title {
+          font-size: 24px;
+        }
+
+        #pdfList {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        #pdfList li {
+          width: 90%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <a href="#" class="logo">Docuzone.</a>
+      <nav class="navbar">
+        <a href="web.html">Home</a>
+        <a href="dashboard.html">Services</a>
+        <a href="branch.html">Branches</a>
+        <a href="notes-download.html" class="active">Download</a>
+        <a href="notes.html">Upload</a>
+        <a href="#">Contact Us</a>
+      </nav>
+      <a href="login.html" class="logout-button">Logout</a>
+    </header>
+
+    <!-- Page Title -->
+    <h1 class="page-title">Download Your S1 CS Notes</h1>
+
+    <!-- Main Content -->
+    <div class="notes-container">
+      <form class="notes-search-bar" action="#" method="GET">
+        <i class="bx bx-search"></i>
+        <input
+          type="search"
+          placeholder="Search for subject, topic, or faculty name..."
+          name="note_query"
+        />
+      </form>
+
+      <ul id="pdfList"></ul>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      const BASE_URL = "http://localhost:8080/api/pdfs";
+
+      async function loadPdfs() {
+        try {
+          const pdfList = document.getElementById("pdfList");
+          const response = await fetch(BASE_URL);
+          const pdfs = await response.json();
+
+          pdfList.innerHTML = "";
+
+          if (pdfs.length === 0) {
+            pdfList.innerHTML = "<li>No notes uploaded yet.</li>";
+            return;
+          }
+
+          pdfs.forEach((pdf) => {
+            const li = document.createElement("li");
+            li.innerHTML = `
+            
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M128 64C92.7 64 64 92.7 64 128L64 512C64 547.3 92.7 576 128 576L208 576L208 464C208 428.7 236.7 400 272 400L448 400L448 234.5C448 217.5 441.3 201.2 429.3 189.2L322.7 82.7C310.7 70.7 294.5 64 277.5 64L128 64zM389.5 240L296 240C282.7 240 272 229.3 272 216L272 122.5L389.5 240zM272 444C261 444 252 453 252 464L252 592C252 603 261 612 272 612C283 612 292 603 292 592L292 564L304 564C337.1 564 364 537.1 364 504C364 470.9 337.1 444 304 444L272 444zM304 524L292 524L292 484L304 484C315 484 324 493 324 504C324 515 315 524 304 524zM400 444C389 444 380 453 380 464L380 592C380 603 389 612 400 612L432 612C460.7 612 484 588.7 484 560L484 496C484 467.3 460.7 444 432 444L400 444zM420 572L420 484L432 484C438.6 484 444 489.4 444 496L444 560C444 566.6 438.6 572 432 572L420 572zM508 464L508 592C508 603 517 612 528 612C539 612 548 603 548 592L548 548L576 548C587 548 596 539 596 528C596 517 587 508 576 508L548 508L548 484L576 484C587 484 596 475 596 464C596 453 587 444 576 444L528 444C517 444 508 453 508 464z"/></svg>            
+            <div class="pdf-title">${pdf.fileName}</div>
+            <a href="${BASE_URL}/${pdf.id}" target="_blank" class="view-link">View</a>
+          `;
+            pdfList.appendChild(li);
+          });
+        } catch (error) {
+          document.getElementById("pdfList").innerHTML =
+            "<li>Failed to load notes. Check the server connection.</li>";
+          console.error("List Load Error:", error);
+        }
+      }
+
+      loadPdfs();
+
+      document
+        .querySelector(".logout-button")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          window.location.href = "login.html";
+        });
+    </script>
+
+    <script
+      src="https://kit.fontawesome.com/9031120266.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

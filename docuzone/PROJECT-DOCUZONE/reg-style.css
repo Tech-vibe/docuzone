@@ -1,0 +1,139 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #E7F2EF;
+  color: #19183B;
+}
+
+h1, h2, h3 {
+  margin: 0 0 10px;
+}
+.logo1 h1{
+  display: flex;
+  position: absolute;s
+  align-items: center;
+  top: 10px;
+  left: 25px;
+  font-size: 30px;
+  font-family: "Anton", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  background-color: #19183B;
+  color: #E7F2EF;
+  padding: 20px;
+  position: fixed;
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 15px 0;
+}
+
+.sidebar ul li a {
+  color: #E7F2EF;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.sidebar ul li a:hover {
+  color: #A1C2BD;
+}
+
+
+.main {
+  margin-left: 240px;
+  padding: 20px;
+}
+
+.cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+
+.register-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.register-container {
+  background: #ffffff;
+  padding: 30px;
+  border: 3px solid #1743e3;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(25,24,59,0.3);
+  width: 350px;
+}
+
+.register-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #19183B;
+}
+
+.register-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.register-container label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.register-container input {
+  padding: 10px;
+  border: 2px solid #1743e3;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+.register-container button {
+  margin-top: 20px;
+  padding: 12px;
+  background: #1743e3;
+  color: #E7F2EF;
+  border: 2px solid #1743e3;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.register-container button:hover {
+  background: transparent;
+  color: #1743e3;
+}
+
+.register-container p {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.register-container a {
+  color: #19183B;
+  text-decoration: none;
+  font-weight: bold;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;;
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subject Selection</title>
+    <link rel="stylesheet" href="sa.css"> 
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* General styling for the new heading */
+        .page-heading {
+            text-align: center;
+            padding-top: 120px; /* Space below the fixed header */
+            font-size: 2.5em; /* Large, noticeable size */
+            font-weight: 700;
+            color: #333; /* Dark color for contrast */
+            margin-bottom: 20px; /* Space above the grid */
+        }
+
+        /* This is the container for the 8 buttons */
+        .subject-grid {
+            /* The padding-top is now handled by the .page-heading */
+            padding: 0 8% 40px 8%; /* Adjusting padding to account for the new heading */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .subject-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 120px;
+            border-radius: 15px;
+            font-size: 24px;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .subject-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            opacity: 0.9;
+        }
+
+        /* --- Individual Button Colors --- */
+        .s1 { background-color: #1abc9c; } /* Turquoise */
+        .s2 { background-color: #2ecc71; } /* Emerald */
+        .s3 { background-color: #3498db; } /* Peter River */
+        .s4 { background-color: #9b59b6; } /* Amethyst */
+        .s5 { background-color: #f1c40f; } /* Sunflower */
+        .s6 { background-color: #e67e22; } /* Carrot */
+        .s7 { background-color: #e74c3c; } /* Alizarin */
+        .s8 { background-color: #34495e; } /* Wet Asphalt */
+    </style>
+</head>
+<body>
+    <HEADER class="header">
+        <a href="#" class="logo">Docuzone.</a>
+        <nav class="navbar">
+            <a href="web.html" >Home</a>
+            <a href="#" class="active">Services</a>
+            <a href="notes.html">Upload</a>
+            <a href="profile.html">Profile</a>
+            <a href="#">contact us</a>
+        </nav>
+        <form>
+            <div class="search">
+                <i class='bx bx-search'></i>
+                <input type="search" class="Searchinput" placeholder="Search">
+            </div>
+        </form>
+        <nav class="navbar">
+            <button class="logout">Logout</button>
+        </nav>
+    </HEADER>
+
+    <main class="subject-selection">
+        <h1 class="page-heading">Select Your Semester</h1>
+        
+        <div class="subject-grid">
+            <a href="branch-s1.html" class="subject-button s1">S1</a>
+            
+            <a href="branch-s2.html" class="subject-button s2">S2</a>
+            
+            <a href="branch-s3.html" class="subject-button s3">S3</a>
+            
+            <a href="branch-s4.html" class="subject-button s4">S4</a>
+            
+            <a href="branch-s5.html" class="subject-button s5">S5</a>
+            
+            <a href="branch-s6.html" class="subject-button s6">S6</a>
+            
+            <a href="branch-s7.html" class="subject-button s7">S7</a>
+            
+            <a href="branch-s8.html" class="subject-button s8">S8</a>
+        </div>
+    </main>
+
+    <script src="logout.js"></script>
+</body>
+</html>

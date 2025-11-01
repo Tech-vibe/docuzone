@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Docuzone</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px 50px;
+      }
+
+      .logo {
+        color: white;
+        font-size: 28px;
+        font-weight: 600;
+        letter-spacing: 1px;
+      }
+
+      .container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        width: 100%;
+        max-width: 400px;
+        padding: 40px;
+      }
+
+      .form-header h1 {
+        color: #333;
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+
+      .input-group {
+        position: relative;
+        margin-bottom: 25px;
+      }
+
+      .input-field {
+        width: 100%;
+        padding: 15px 45px 15px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        font-size: 14px;
+        font-family: "Poppins", sans-serif;
+        transition: all 0.3s ease;
+        outline: none;
+      }
+
+      .input-field:focus {
+        border-color: #667eea;
+      }
+
+      .input-group i {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #999;
+        font-size: 20px;
+      }
+
+      .eye-icon {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #999;
+        transition: color 0.3s ease;
+      }
+
+      .eye-icon:hover {
+        color: #667eea;
+      }
+
+      .check-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+      }
+
+      .remembe-me {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .check-box-field {
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+      }
+
+      .remembe-me label {
+        font-size: 14px;
+        color: #666;
+        cursor: pointer;
+      }
+
+      .form-link {
+        color: #667eea;
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.3s ease;
+      }
+
+      .form-link:hover {
+        color: #764ba2;
+      }
+
+      .btn-submit {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+      }
+
+      .register {
+        text-align: center;
+        margin-top: 25px;
+      }
+
+      .reg-link {
+        color: #666;
+        font-size: 14px;
+      }
+
+      .reg-connect {
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+
+      .reg-connect:hover {
+        color: #764ba2;
+      }
+
+      .error-message {
+        background: #fee;
+        color: #c33;
+        padding: 10px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        font-size: 14px;
+        text-align: center;
+        display: none;
+      }
+
+      .success-message {
+        background: #efe;
+        color: #3c3;
+        padding: 10px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        font-size: 14px;
+        text-align: center;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1 class="logo">Docuzone.</h1>
+    </header>
+
+    <div class="container">
+      <div class="form-header">
+        <h1>Student Login</h1>
+      </div>
+
+      <div class="error-message" id="errorMessage"></div>
+      <div class="success-message" id="successMessage"></div>
+
+      <form id="loginForm" class="form-box">
+        <div class="input-group">
+          <input
+            type="text"
+            class="input-field"
+            id="ktuId"
+            placeholder="KTU ID"
+            required
+          />
+          <i class="bx bxs-user"></i>
+        </div>
+
+        <div class="input-group">
+          <input
+            type="password"
+            class="input-field"
+            id="password"
+            placeholder="Password"
+            required
+          />
+          <div class="eye-icon" onclick="togglePassword()">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"
+              />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="input-group check-group">
+          <div class="remembe-me">
+            <input type="checkbox" id="rememberMe" class="check-box-field" />
+            <label for="rememberMe">Remember me</label>
+          </div>
+          <div class="form-col">
+            <a href="#" class="form-link">Forgot password?</a>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Login</button>
+
+        <div class="register">
+          <p class="reg-link">
+            Don't have an account?
+            <a href="register.html" class="reg-connect">Register</a>
+          </p>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      // Initialize demo credentials in memory (simulating stored values)
+
+      // Toggle password visibility
+      function togglePassword() {
+        const passwordInput = document.getElementById("password");
+        const eyeIcon = document.querySelector(".eye-icon");
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          eyeIcon.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/>
+                        <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/>
+                        <path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/>
+                        <path d="m2 2 20 20"/>
+                    </svg>
+                `;
+        } else {
+          passwordInput.type = "password";
+          eyeIcon.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                `;
+        }
+      }
+
+      // Show message function
+      function showMessage(type, message) {
+        const errorDiv = document.getElementById("errorMessage");
+        const successDiv = document.getElementById("successMessage");
+
+        if (type === "error") {
+          errorDiv.textContent = message;
+          errorDiv.style.display = "block";
+          successDiv.style.display = "none";
+        } else {
+          successDiv.textContent = message;
+          successDiv.style.display = "block";
+          errorDiv.style.display = "none";
+        }
+
+        // Hide message after 3 seconds
+        setTimeout(() => {
+          errorDiv.style.display = "none";
+          successDiv.style.display = "none";
+        }, 3000);
+      }
+
+      // Handle form submission
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const ktuId = document.getElementById("ktuId").value;
+          const password = document.getElementById("password").value;
+          const rememberMe = document.getElementById("rememberMe").checked;
+
+          // Validate credentials
+          const storedCredentials = {
+            ktuId: localStorage.getItem("ktuId"),
+            password: localStorage.getItem("password"),
+            studentName: localStorage.getItem("studentName"),
+          };
+          console.log(storedCredentials);
+          if (
+            ktuId === storedCredentials.ktuId &&
+            password === storedCredentials.password
+          ) {
+            showMessage(
+              "success",
+              `Welcome back, ${storedCredentials.studentName}!`
+            );
+
+            // Simulate login success
+            setTimeout(() => {
+              console.log("Login successful!");
+              console.log("Student Name:", storedCredentials.studentName);
+              console.log("Remember Me:", rememberMe);
+              // Here you would typically redirect to dashboard
+              window.location.href = "web.html";
+            }, 1500);
+          } else {
+            showMessage("error", "Invalid KTU ID or Password!");
+          }
+        });
+
+      // Check for saved credentials on page load (if remember me was checked)
+      window.addEventListener("load", function () {
+        console.log("Demo credentials - KTU ID: sdfas, Password: 123");
+      });
+    </script>
+  </body>
+</html>
